@@ -199,29 +199,86 @@ html, body, button, a, * {
 }
 
 .app-background {
-  position: fixed;
-  inset: 0;
-  z-index: 0; /* was -1 — this was the bug */
+  position: relative;
+  top:0;
+  left:0;
+  width: 100vw;
+  height: 100vh;
 }
 
 .app-background::before {
   content: '';
   position: absolute;
+  top:0;
+  left: 0;
   inset: 0;
   background-image: url('./assets/KV6A9375.jpg');
   background-size: cover;
-  background-position: center;
+  background-position: left top;
   background-repeat: no-repeat;
-  z-index: -1;
 }
+
+.app-button {
+  padding: 12px 28px;
+  font-size: 3rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  font-weight: 500;
+  color: white;
+  background: green;
+  border: 2px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
 .app-title {
   position: fixed;
   bottom: 24px;
   right: 5%;
   margin: 0;
-  color: #2e180b;
-  font-size: 3rem;
+  line-height: 1.1;
+  color: #1b1e06;
+  font-size: 2rem;
   font-weight: 500;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
   z-index: 10;
+}
+
+.app-button {
+  padding: 12px 28px;
+  font-size: 3rem;
+  top: 50%;
+  position: absolute;
+  font-weight: 500;
+  color: white;
+  background: orange;
+  border: 2px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.alex-button {
+  font-size: 3rem;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 6.5vw;
+  height: 10.5vw;
+  font-weight: 500;
+  top: 19.5vw;
+  left: 28.5vw;
+  color: transparent;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
