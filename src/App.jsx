@@ -3,6 +3,7 @@ import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import './App.css'
+import InvertedMouse from './InvertedMouse'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -114,6 +115,7 @@ function App() {
       </section>
 
       <div className="ticks"></div>
+      <InvertedMouse />
       <section id="spacer"></section>
     </>
   )
