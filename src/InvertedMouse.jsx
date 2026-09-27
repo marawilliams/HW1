@@ -1,53 +1,58 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export default function InvertedMouse() {
   const [fakePos, setFakePos] = useState({ x: 0, y: 0 });
+  const fakePosRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-        const invertedX = window.innerWidth - e.clientX;
-        const invertedY = window.innerHeight - e.clientY;
+      const invertedX = window.innerWidth - e.clientX;
+      const invertedY = window.innerHeight - e.clientY;
 
-        setFakePos({ x: invertedX, y: invertedY });
+      fakePosRef.current = { x: invertedX, y: invertedY };
+      setFakePos({ x: invertedX, y: invertedY });
     };
 
-    const handlePhysicalMouse = (e) => {
-        if (!e.isTrusted) return;
+    const handleClick = (e) => {
+      // Ignore synthetic clicks we trigger ourselves below (isTrusted is
+      // false for .click() calls), so we don't get stuck in a loop.
+      if (!e.isTrusted) return;
 
-        e.preventDefault();
-        e.stopPropagation();
+      e.preventDefault();
+      e.stopPropagation();
 
-        const elementAtFakePos = document.elementFromPoint(fakePos.x, fakePos.y);
-        
-        if (elementAtFakePos) {
-            elementAtFakePos.click();
-        }
+      const { x, y } = fakePosRef.current;
+      const target = document.elementFromPoint(x, y);
+
+      if (target) {
+        target.click();
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("click", handlePhysicalMouse, true);
+    window.addEventListener("click", handleClick, true);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("click", handlePhysicalMouse, true);
+      window.removeEventListener("click", handleClick, true);
     };
-  }, [fakePos]);
+  }, []);
 
   return (
-    <div 
-      style={{ 
+    <div
+      style={{
         position: "fixed",
-        left: `${fakePos.x}px`, 
-        top: `${fakePos.y}px`, 
-        width: "16px", 
-        height: "16px", 
+        left: `${fakePos.x}px`,
+        top: `${fakePos.y}px`,
+        width: "16px",
+        height: "16px",
         backgroundColor: "black",
         border: "2px solid white",
         borderRadius: "50%",
-        pointerEvents: "none", // Keeps the dot from blocking elementFromPoint
+        pointerEvents: "none",
         zIndex: 99999,
         transform: "translate(-50%, -50%)",
-        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)" // Fixed your "4x" typo to "4px"
+        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)",
       }}
     />
   );

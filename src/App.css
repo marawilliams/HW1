@@ -191,11 +191,37 @@ html, body, button, a, * {
   position: fixed !important;
   width: 16px;
   height: 16px;
-  background-color: red; /* Or your preferred theme color */
+  background-color: red; 
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  z-index: 999999; /* Higher than your .hero or #center layers */
-  
-  /* 🛑 THE FIX: This absolutely prevents the freeze loop */
+  z-index: 999999; 
   pointer-events: none !important; 
+}
+
+.app-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0; /* was -1 — this was the bug */
+}
+
+.app-background::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('./assets/KV6A9375.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -1;
+}
+.app-title {
+  position: fixed;
+  bottom: 24px;
+  right: 5%;
+  margin: 0;
+  color: #2e180b;
+  font-size: 3rem;
+  font-weight: 500;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  z-index: 10;
 }
