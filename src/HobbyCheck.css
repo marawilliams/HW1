@@ -1,0 +1,94 @@
+.hobby-check-page {
+  min-height: 100vh;
+  padding: 24px 24px 64px;
+  background: lightgray;
+  color: #171717;
+}
+
+.hobby-check-content {
+  width: min(100%, 560px);
+  margin: 0 auto;
+}
+
+.hobby-check-content h1 {
+  margin: 0 0 12px;
+  font-size: 32px;
+}
+
+.hobby-check-content > p {
+  margin-bottom: 20px;
+}
+
+.hobby-check-form {
+  display: grid;
+  gap: 14px;
+}
+
+.hobby-check-field {
+  display: grid;
+  gap: 5px;
+  font-weight: 700;
+}
+
+.hobby-check-field input {
+  width: 100%;
+  min-height: 38px;
+  padding: 7px 9px;
+  border: 1px solid #59626b;
+  border-radius: 3px;
+  background: white;
+  color: #171717;
+}
+
+.hobby-check-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hobby-check-actions button,
+.hobby-check-content > button {
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid #25303a;
+  border-radius: 3px;
+  background: #f3f3f3;
+  color: #171717;
+  font: inherit;
+  font-weight: 700;
+}
+
+.hobby-check-result {
+  font-weight: 700;
+}
+
+.hobby-check-result-incorrect {
+  color: #16833b;
+}
+
+.hobby-check-result-correct {
+  color: #bd1e1e;
+}
+
+.hobby-check-submit-link {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  padding: 2px;
+  border: 0;
+  background: transparent;
+  color: #777;
+  font-size: 12px;
+  text-align: left;
+}
+
+.hobby-check-submit-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .hobby-check-page {
+    padding: 18px 18px 64px;
+  }
+}

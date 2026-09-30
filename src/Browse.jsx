@@ -1,8 +1,3 @@
-import React, {useState} from "react";
-import { useNavigate } from "react-router-dom";
-import InvertedMouse from "./InvertedMouse";
-
-
 function Alex() {
   return (
     <div>

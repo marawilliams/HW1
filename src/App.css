@@ -249,10 +249,83 @@ html, body, button, a, * {
   z-index: 10;
 }
 
+.info-button {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 20;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: #1b1e06;
+  color: white;
+  font-family: Georgia, serif;
+  font-size: 25px;
+  font-style: italic;
+  line-height: 1;
+}
+
+.about-page {
+  position: relative;
+  min-height: 100vh;
+  padding: 8px 12px;
+  background: #f3f1e8;
+  color: #1b1e06;
+}
+
+.about-content {
+  width: 100%;
+}
+
+.about-content h1 {
+  margin: 0 0 4px;
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+.about-story {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.about-go-link {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-decoration: inherit;
+}
+
+.about-home-button {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .info-button {
+    top: 16px;
+    right: 16px;
+  }
+
+  .about-page {
+    padding: 6px 8px;
+  }
+
+  .about-story {
+    font-size: 13px;
+  }
+}
+
 .app-button {
   padding: 12px 28px;
   font-size: 3rem;
   top: 50%;
+  z-index: 2;
   position: absolute;
   font-weight: 500;
   color: white;
@@ -266,19 +339,25 @@ html, body, button, a, * {
 }
 
 .alex-button {
-  font-size: 3rem;
+  --alex-hit-width: clamp(180px, 24vw, 380px);
+  --alex-hit-height: min(70vh, 700px);
   position: absolute;
   transform: translate(-50%, -50%);
-  width: 6.5vw;
-  height: 10.5vw;
-  font-weight: 500;
-  top: 19.5vw;
-  left: 28.5vw;
+  width: var(--alex-hit-width);
+  height: var(--alex-hit-height);
+  top: clamp(
+    calc(var(--alex-hit-height) / 2 + 8px),
+    max(12.88vw, 45vh),
+    calc(100vh - var(--alex-hit-height) / 2 - 8px)
+  );
+  left: clamp(
+    calc(var(--alex-hit-width) / 2 + 8px),
+    max(28.5vw, 43.15vh),
+    calc(100vw - var(--alex-hit-width) / 2 - 8px)
+  );
+  z-index: 1;
   color: transparent;
   border: none;
   background: transparent;
   cursor: pointer;
-  transition: all 0.2s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
 }

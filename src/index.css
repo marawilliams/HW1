@@ -60,6 +60,17 @@ body {
   margin: 0;
 }
 
+html,
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
 #root {
   width: 100%;
   min-height: 100svh;
@@ -115,6 +126,20 @@ code {
 html, body, button, a, * {
   cursor: none !important;
 } 
+
+@keyframes cursor-visible-cycle {
+  0%, 66.666% {
+    opacity: 1;
+  }
+
+  66.667%, 100% {
+    opacity: 0;
+  }
+}
+
+.inverted-cursor-blink {
+  animation: cursor-visible-cycle 3s steps(1, end) infinite;
+}
 
 .fake-cursor, .inverted-cursor {
   position: fixed !important;
