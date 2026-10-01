@@ -1,6 +1,6 @@
 import './App.css'
 import { useEffect, useState } from 'react'
-import {Routes, Route, useNavigate} from 'react-router-dom'
+import {Routes, Route, useLocation, useNavigate} from 'react-router-dom'
 import Alex from './Alex'
 import Demographics from './Demographics'
 import InvertedMouse from './InvertedMouse'
@@ -67,6 +67,8 @@ function SignupTimer() {
 }
 
 function App(){
+  const location = useLocation();
+
   useEffect(() => {
     sessionStorage.removeItem('signupCompletedAt');
     sessionStorage.setItem('signupStartedAt', String(Date.now()));
@@ -74,7 +76,7 @@ function App(){
 
   return (
     <>
-      <SignupTimer />
+      {location.pathname !== '/thankyou' && <SignupTimer />}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/alex" element={<Alex />} />

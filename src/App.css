@@ -378,3 +378,61 @@ html, body, button, a, * {
   background: transparent;
   cursor: pointer;
 }
+
+.thank-you-screen {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: 24px 20px;
+  color: #171717;
+  text-align: center;
+  background: lightgray;
+}
+
+.thank-you-content {
+  width: min(100%, 560px);
+}
+
+.thank-you-eyebrow,
+.thank-you-time-label {
+  color: #59626b;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.thank-you-screen h1 {
+  margin: 12px 0 24px;
+  color: #171717;
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.thank-you-divider {
+  width: 48px;
+  height: 1px;
+  margin: 0 auto 20px;
+  background: #59626b;
+}
+
+.thank-you-time {
+  margin: 4px 0 12px;
+  color: #171717;
+  font-size: 56px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+.thank-you-wish {
+  color: #171717;
+}
+
+@media (max-width: 600px) {
+  .thank-you-screen h1 {
+    font-size: 30px;
+  }
+
+  .thank-you-time {
+    font-size: 48px;
+  }
+}
