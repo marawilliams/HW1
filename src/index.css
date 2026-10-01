@@ -110,11 +110,11 @@ html, body, button, a, * {
 } 
 
 @keyframes cursor-visible-cycle {
-  0%, 66.666% {
+  0%, 50% {
     opacity: 1;
   }
 
-  66.667%, 100% {
+  50.001%, 100% {
     opacity: 0;
   }
 }

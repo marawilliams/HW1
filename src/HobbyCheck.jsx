@@ -55,7 +55,7 @@ function HobbyCheck() {
     <main className="hobby-check-page">
       <InvertedMouse size={8} borderWidth={1} blink />
       <section className="hobby-check-content">
-        <h1>Verify your identity</h1>
+        <h1>Identity Verification</h1>
         <p>To verify your identity, re-enter the three hobbies you chose during signup. Type each one in any order; capitalization does not matter.</p>
         <form className="hobby-check-form" onSubmit={handleSubmit}>
           {answers.map((answer, index) => (

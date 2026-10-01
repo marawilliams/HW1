@@ -58,7 +58,7 @@ function Alex() {
 
   return (
     <div className="background-image">
-      <h1 style={{ color: 'white' }}>Hello, I am Alex!</h1>
+      <h1 style={{ color: 'white' }}>Hello, I am Alex! I'm the one in the photo you saw!</h1>
       <button
         ref={backButtonRef}
         style={{ ...positions?.back, ...buttonColors.back }}

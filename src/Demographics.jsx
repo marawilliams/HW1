@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import InvertedMouse from "./InvertedMouse";
 import "./Demographics.css";
 
-const FIELD_KEYS = ["name", "location", "dateOfBirth", "daysOld", "gender"];
+const FIELD_KEYS = ["name", "email", "dateOfBirth", "daysOld", "gender"];
 const HOBBIES = [
   "Hiking", "Rock climbing", "Bouldering", "Trail running", "Cycling",
   "Mountain biking", "Swimming", "Yoga", "Pilates", "Weight training",
@@ -41,14 +41,14 @@ const FIELD_PALETTE = [
 ];
 const FIELD_DESTINATION_COLORS = {
   name: "orange",
-  location: "blue",
+  email: "blue",
   dateOfBirth: "yellow",
   daysOld: "purple",
   gender: "green",
 };
 const FIELD_LABELS = {
   name: "Name",
-  location: "Location",
+  email: "email",
   dateOfBirth: "Date of birth",
   daysOld: "Days being alive (for verification)",
   gender: "Gender",
@@ -117,8 +117,8 @@ function getColorStyle(color) {
 
 function Demographics() {
   const [name, setName] = useState("");
-  const [location, setLocation] = useState("");
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [email, setemail] = useState("");
+  const [birthDateParts, setBirthDateParts] = useState({ year: "", day: "", month: "" });
   const [daysOld, setDaysOld] = useState("");
   const [fieldColors] = useState(getRandomFieldColors);
   const [displayOrders] = useState(getRandomDisplayOrders);
@@ -132,15 +132,32 @@ function Demographics() {
 
   const navigate = useNavigate();
 
+  const { year, day, month } = birthDateParts;
+  const numericYear = Number(year);
+  const numericDay = Number(day);
+  const numericMonth = Number(month);
+  const candidateDate = new Date(0);
+  candidateDate.setUTCFullYear(numericYear, numericMonth - 1, numericDay);
+  const dateOfBirth =
+    year.length === 4 &&
+    day !== "" &&
+    month !== "" &&
+    candidateDate.getUTCFullYear() === numericYear &&
+    candidateDate.getUTCMonth() === numericMonth - 1 &&
+    candidateDate.getUTCDate() === numericDay
+      ? `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`
+      : "";
+
   const calculateDaysOld = (birthDate) => {
     if (!birthDate) return null;
 
     const today = new Date();
     const [year, month, day] = birthDate.split("-").map(Number);
     const todayUtc = Date.UTC(today.getFullYear(), today.getMonth(), today.getDate());
-    const birthDateUtc = Date.UTC(year, month - 1, day);
+    const birthDateUtcDate = new Date(0);
+    birthDateUtcDate.setUTCFullYear(year, month - 1, day);
 
-    return Math.floor((todayUtc - birthDateUtc) / (1000 * 60 * 60 * 24));
+    return Math.floor((todayUtc - birthDateUtcDate.getTime()) / (1000 * 60 * 60 * 24));
   };
 
   const isDaysOldCorrect =
@@ -151,7 +168,7 @@ function Demographics() {
     GENDER_OPTIONS.find((option) => option.value === selectedGender)?.label ?? "Select Date";
   const isFormComplete = Boolean(
     name.trim() &&
-    location.trim() &&
+    email.trim() &&
     dateOfBirth &&
     isDaysOldCorrect &&
     selectedGender &&
@@ -199,29 +216,66 @@ function Demographics() {
             onChange={(event) => setName(event.target.value)}
           />
         );
-      case "location":
+      case "email":
         return (
           <input
-            id="location"
-            aria-labelledby="instruction-location"
+            id="email"
+            aria-labelledby="instruction-email"
             type="text"
-            name="location"
-            value={location}
-            onChange={(event) => setLocation(event.target.value)}
+            name="email"
+            value={email}
+            onChange={(event) => setemail(event.target.value)}
           />
         );
       case "dateOfBirth":
         return (
-          <input
-            id="date-of-birth"
-            aria-labelledby="instruction-dateOfBirth"
-            type="date"
-            value={dateOfBirth}
-            onChange={(e) => {
-              setDateOfBirth(e.target.value);
-              setDaysOld("");
-            }}
-          />
+          <div className="birth-date-fields">
+            <input
+              id="birth-year"
+              aria-labelledby="instruction-dateOfBirth"
+              aria-label="Birth year"
+              type="number"
+              min="1"
+              max="9999"
+              step="1"
+              placeholder="What a decade is made up of"
+              value={year}
+              onChange={(event) => {
+                setBirthDateParts((parts) => ({ ...parts, year: event.target.value }));
+                setDaysOld("");
+              }}
+            />
+            <input
+              id="birth-day"
+              aria-labelledby="instruction-dateOfBirth"
+              aria-label="Birth day"
+              type="number"
+              min="1"
+              max="31"
+              step="1"
+              placeholder="There's 24 hours in this"
+              value={day}
+              onChange={(event) => {
+                setBirthDateParts((parts) => ({ ...parts, day: event.target.value }));
+                setDaysOld("");
+              }}
+            />
+            <input
+              id="birth-month"
+              aria-labelledby="instruction-dateOfBirth"
+              aria-label="Birth month"
+              type="number"
+              min="1"
+              max="12"
+              step="1"
+              placeholder="There's 12 of these in one of the first field"
+              value={month}
+              onChange={(event) => {
+                setBirthDateParts((parts) => ({ ...parts, month: event.target.value }));
+                setDaysOld("");
+              }}
+            />
+          </div>
         );
       case "daysOld":
         return (
@@ -332,7 +386,7 @@ function Demographics() {
           <div className="signup-instruction-list">
           {displayOrders.instructions.map((fieldKey) => {
             const inputId = fieldKey === "dateOfBirth"
-              ? "date-of-birth"
+              ? "birth-year"
               : fieldKey === "daysOld"
                 ? "days-old"
                 : fieldKey;
@@ -357,7 +411,7 @@ function Demographics() {
           <div className="signup-input-list">
             {displayOrders.inputs.map((fieldKey) => (
               <div
-                className="signup-input-box"
+                className={`signup-input-box${fieldKey === "dateOfBirth" ? " signup-input-box-date" : ""}`}
                 key={fieldKey}
                 style={getColorStyle(COLOR_BY_NAME[FIELD_DESTINATION_COLORS[fieldKey]])}
               >

@@ -71,6 +71,10 @@
 	flex-wrap: wrap;
 }
 
+.signup-input-box-date {
+	grid-column: 1 / -1;
+}
+
 .signup-input-box input,
 .signup-input-box select {
 	max-width: 100%;
@@ -79,6 +83,17 @@
 	border-radius: 3px;
 	background: white;
 	color: #171717;
+}
+
+.birth-date-fields {
+	display: grid;
+	grid-template-columns: 1.15fr 0.8fr 0.8fr;
+	gap: 4px;
+	width: 100%;
+}
+
+.birth-date-fields input {
+	width: 100%;
 }
 
 .signup-input-box p {
@@ -373,6 +388,12 @@
 		font-size: 9px;
 	}
 
+}
+
+@media (max-width: 640px) {
+	.birth-date-fields {
+		grid-template-columns: 1fr;
+	}
 }
 
 .signup-exit-wrap {
