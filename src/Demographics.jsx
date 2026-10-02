@@ -165,7 +165,7 @@ function Demographics() {
     daysOld !== "" &&
     Number(daysOld) === calculateDaysOld(dateOfBirth);
   const selectedGenderLabel =
-    GENDER_OPTIONS.find((option) => option.value === selectedGender)?.label ?? "Select Date";
+    GENDER_OPTIONS.find((option) => option.value === selectedGender)?.label ?? "Select";
   const isFormComplete = Boolean(
     name.trim() &&
     email.trim() &&
